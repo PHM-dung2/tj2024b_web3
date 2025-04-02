@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity // 해당 클래스는 DB테이블과 매핑
 @Table( name = "day02book" ) // DB테이블명 정의
 @Data // 롬복
-public class BookEntity {
+public class BookEntity extends BaseTime{
 
     @Id // PRIMARY KEY
     @GeneratedValue( strategy = GenerationType.IDENTITY )

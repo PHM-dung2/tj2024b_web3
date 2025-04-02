@@ -1,4 +1,4 @@
-package day02._BaseTime;
+package day02._영속성;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
