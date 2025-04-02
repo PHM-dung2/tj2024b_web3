@@ -1,4 +1,4 @@
-package example._엔티티;
+package day01.example._엔티티;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

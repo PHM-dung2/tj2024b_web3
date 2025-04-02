@@ -1,4 +1,4 @@
-package example._과제;
+package day01.example._과제;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

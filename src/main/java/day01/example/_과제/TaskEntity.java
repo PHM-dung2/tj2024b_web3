@@ -1,4 +1,4 @@
-package example._과제;
+package day01.example._과제;
 
 import jakarta.persistence.*;
 import lombok.Data;

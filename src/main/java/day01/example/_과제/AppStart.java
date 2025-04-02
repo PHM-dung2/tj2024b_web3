@@ -1,4 +1,4 @@
-package example._엔티티;
+package day01.example._과제;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
