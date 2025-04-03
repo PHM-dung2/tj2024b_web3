@@ -42,12 +42,16 @@ public class TaskService {
     public boolean postStudent( StudentDto studentDto ){
         System.out.println("TaskService.postStudent");
         System.out.println("studentDto = " + studentDto);
-
+        // 1. 학생 dto --> 학생 엔티티 변환
+        StudentEntity studentEntity = studentDto.toEntity();
+        // 2. 학생 엔티티 save
+        StudentEntity saveEntity = studentRepository.save( studentEntity );
+        if( saveEntity.getSno() < 1 ){ return false; }
+        // 3. 특정한 과정 엔티티 조회
         CourceEntity courceEntity = courceRepository.findById( studentDto.getCno() ).orElse( null );
         if( courceEntity == null ){ return false; }
-        StudentEntity studentEntity = studentDto.toEntity();
-        studentEntity.setCourceEntity( courceEntity );
-        studentRepository.save( studentEntity );
+        // 4. 등록된 학생 엔티티의 특정한 과정 엔티티 대입<FK대입>
+        saveEntity.setCourceEntity( courceEntity ); // 단방향 멤버변수에 과정엔티티 대입하기( fk 대입 )
 
         return true;
     } // f end
@@ -55,12 +59,24 @@ public class TaskService {
     // 4. 특정 과정에 수강생 전체 조회
     public List<StudentDto> getStudent( int cno ){
         System.out.println("TaskService.getStudent");
-        List<StudentEntity> studentEntityList = studentRepository.findAll();
-
-        return studentEntityList.stream()
+        // 1. cno 이용하여 과정 엔티티 찾기
+        CourceEntity courceEntity = courceRepository.findById( cno ).orElse( null );
+        if( courceEntity == null ){ return null; }
+        // 2. 조회한 과정 엔티티 안에 찹조중인 학생 목록
+        List<StudentEntity> studentEntityList = courceEntity.getStudentEntityList();
+        // 3. dto 변환
+        List<StudentDto> studentDtoList = studentEntityList.stream()
                 .map( entity -> entity.toDto() )
-                .filter( entity -> entity.getCno() == cno )
                 .collect( Collectors.toList() );
+        // 4.
+        return studentDtoList;
+
+//        List<StudentEntity> studentEntityList = studentRepository.findAll();
+//
+//        return studentEntityList.stream()
+//                .map( entity -> entity.toDto() )
+//                .filter( entity -> entity.getCno() == cno )
+//                .collect( Collectors.toList() );
 
     } // f end
 }

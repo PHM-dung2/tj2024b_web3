@@ -16,6 +16,7 @@ public class StudentDto {
     private int cno;
 
     public StudentEntity toEntity(){
+        toEntity().getCourceEntity().setCno( getCno() );
         return StudentEntity.builder()
                .sno( this.sno )
                .sname( this.sname )
