@@ -35,7 +35,7 @@ public class Category {
 
     [2] @OneToMany( fetch = FetchType.XXX ), @ManyToOne( fetch = FetchType.XXX )
         1. fetch = FetchType.EAGER : 즉시 로딩(기본값) : 해당 엔티티를 조회(FindXXX)할 때 참조되는 모든 객체를 즉시 불러온다.
-            특징 : 포기 로딩 느리다. 불필요한 엔티티가 모두 가져오기 떄문에 (메모리)로드 기능 저하
+            특징 : 초기 로딩 느리다. 불필요한 엔티티가 모두 가져오기 떄문에 (메모리)로드 기능 저하
 
         2. fetch = FetchType.LAZY  : 지연 로딩 : 해당 엔티티를 조회할 떄 참조되는 객체를 불러오지 않고 .getXXX() 등 참조할 떄 참조되는 객체를 불러온다.
             특징 : 초기 로딩 빠르다. 메모리 사용량을 적절하게 사용하므로 성능 최적화
