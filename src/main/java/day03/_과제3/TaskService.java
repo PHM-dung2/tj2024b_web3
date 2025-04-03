@@ -19,8 +19,12 @@ public class TaskService {
         System.out.println("TaskService.post");
         System.out.println("courceDto = " + courceDto);
 
-        CourceEntity courceEntity = courceDto.toEntity();
-        courceRepository.save( courceEntity );
+        // 1. DTO --> entity 변환
+        CourceEntity saveEntity = courceDto.toEntity();
+        // 2. 해당 entity를 .save 하기
+        courceRepository.save( saveEntity ); // 반환값 : 영속된 객체
+        // 3. 결과 확인
+        if( saveEntity.getCno() > 0 ){ return false; } // 만약에 영속 결과(과정번호)가 없다면 false
 
         return true;
     } // f end
@@ -31,7 +35,7 @@ public class TaskService {
         List<CourceEntity> courceEntityList = courceRepository.findAll();
 
         return courceEntityList.stream()
-                .map( cource -> cource.toDto() )
+                .map( entity -> entity.toDto() )
                 .collect( Collectors.toList() );
     }
     // 3. 특정 과정에 수강생 등록
@@ -39,7 +43,10 @@ public class TaskService {
         System.out.println("TaskService.postStudent");
         System.out.println("studentDto = " + studentDto);
 
+        CourceEntity courceEntity = courceRepository.findById( studentDto.getCno() ).orElse( null );
+        if( courceEntity == null ){ return false; }
         StudentEntity studentEntity = studentDto.toEntity();
+        studentEntity.setCourceEntity( courceEntity );
         studentRepository.save( studentEntity );
 
         return true;
@@ -51,8 +58,8 @@ public class TaskService {
         List<StudentEntity> studentEntityList = studentRepository.findAll();
 
         return studentEntityList.stream()
-                .map( student -> student.toDto() )
-                .filter( student -> student.getCno() == cno )
+                .map( entity -> entity.toDto() )
+                .filter( entity -> entity.getCno() == cno )
                 .collect( Collectors.toList() );
 
     } // f end

@@ -19,7 +19,6 @@ public class StudentDto {
         return StudentEntity.builder()
                .sno( this.sno )
                .sname( this.sname )
-                .cno( this.cno )
                .build();
     }
 }

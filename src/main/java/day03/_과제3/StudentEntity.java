@@ -18,9 +18,6 @@ public class StudentEntity extends BaseTime {
     @Column( nullable = false, length = 30 )
     private String sname;
 
-    @Column
-    private int cno;
-
     @ManyToOne
     private CourceEntity courceEntity;
 
@@ -28,7 +25,7 @@ public class StudentEntity extends BaseTime {
         return StudentDto.builder()
                .sno( this.sno )
                .sname( this.sname )
-                .cno( this.cno )
+                .cno( this.courceEntity.getCno() )
                .build();
     }
 
