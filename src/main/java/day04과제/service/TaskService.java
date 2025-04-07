@@ -24,7 +24,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
 
     // 1. 비품 등록
-    @PostMapping
+    /*
     public TaskDto taskSave(@RequestBody TaskDto taskDto ){
         TaskEntity taskEntity = taskDto.toEntity();
         TaskEntity saveEntity = taskRepository.save( taskEntity );
@@ -36,10 +36,32 @@ public class TaskService {
         } // if end
 
     } // f end
+    */
+
+    // 1. 비품 등록 native 쿼리
+    public boolean taskSave( TaskDto taskDto ){
+        TaskEntity taskEntity = taskDto.toEntity();
+        int saveEntity = taskRepository.postByNative(
+                taskEntity.getName(),
+                taskEntity.getDescription(),
+                taskEntity.getQuantity(),
+                taskEntity.getCreatedate(),
+                taskEntity.getUpdatedate()
+        );
+
+        if( saveEntity == 1 ){
+            return true;
+        }else{
+            return false;
+        } // if end
+
+    } // f end
 
     // 2. 전체 비품 조회
     public List<TaskDto> taskFindAll(){
-        List<TaskEntity> taskEntityList = taskRepository.findAll();
+        // List<TaskEntity> taskEntityList = taskRepository.findAll();
+        // native 쿼리
+        List<TaskEntity> taskEntityList = taskRepository.findAllByNative();
 
         return taskEntityList.stream()
                 .map( TaskEntity::toDto )
@@ -48,13 +70,16 @@ public class TaskService {
     } // f end
 
     // 3. 개별 비품 조회
-    public TaskDto taskFindById( @RequestParam int id ){
-        return taskRepository.findById( id )
+    public TaskDto taskFindById( int id ){
+        // return taskRepository.findById( id )
+        // native 쿼리
+        return taskRepository.findByIdByNative( id )
                 .map( TaskEntity::toDto )
                 .orElse( null );
 
     } // f end
 
+    /*
     // 4. 비품 수정
     public TaskDto taskUpdate( TaskDto taskDto ){
         Optional<TaskEntity> optional = taskRepository.findById( taskDto.getId() );
@@ -67,8 +92,26 @@ public class TaskService {
                 })
                 .orElse( null );
     } // f end
+    */
+
+    // 4. 비품 수정
+    public boolean taskUpdate( TaskDto taskDto ){
+        int result = taskRepository.updateByNative(
+                taskDto.getId(),
+                taskDto.getName(),
+                taskDto.getDescription(),
+                taskDto.getQuantity()
+        );
+
+        if( result == 1 ){
+            return true;
+        } else{
+            return false;
+        } // if end
+    } // f end
 
     // 5. 비품 삭제
+    /*
     public boolean taskDelete( int id ){
         return taskRepository.findById( id )
                 .map( ( entity ) -> {
@@ -76,6 +119,16 @@ public class TaskService {
                     return true;
                 })
                 .orElse( false );
+    } // f end
+    */
+
+    public boolean taskDelete( int id ){
+        int result = taskRepository.deleteByNative( id );
+        if( result == 1 ){
+            return true;
+        } else{
+            return false;
+        } // if end
     } // f end
 
     // 6. 페이징 비품 목록 조회
@@ -86,5 +139,6 @@ public class TaskService {
                 .map( TaskEntity::toDto )
                 .collect( Collectors.toList() );
     } // f end
+
 
 }

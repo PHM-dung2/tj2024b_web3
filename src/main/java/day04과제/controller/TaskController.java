@@ -16,7 +16,7 @@ public class TaskController {
 
     // 1. 비품 등록
     @PostMapping
-    public TaskDto taskSave(@RequestBody TaskDto taskDto ){
+    public boolean taskSave(@RequestBody TaskDto taskDto ){
         return taskService.taskSave( taskDto );
     } // f end
 
@@ -34,7 +34,7 @@ public class TaskController {
 
     // 4. 비품 수정
     @PutMapping
-    public TaskDto taskUpdate( @RequestBody TaskDto taskDto ){
+    public boolean taskUpdate( @RequestBody TaskDto taskDto ){
         return taskService.taskUpdate( taskDto );
     } // f end
 

@@ -1,6 +1,7 @@
 package day04.model.repository;
 
 import day04.model.entity.TodoEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface TodoRepository extends JpaRepository< TodoEntity, Integer > {
 
     // JPA Repository

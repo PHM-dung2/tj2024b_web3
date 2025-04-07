@@ -16,8 +16,8 @@ public class TaskDto {
     private String name;
     private String description;
     private int quantity;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
+    private LocalDateTime createdate;
+    private LocalDateTime updatedate;
 
     public TaskEntity toEntity(){
         return TaskEntity.builder()

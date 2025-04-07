@@ -25,8 +25,8 @@ public class TaskEntity extends BaseTime{
                .name( this.name )
                .description( this.description )
                .quantity( this.quantity )
-                .createAt( this.getCreatedate() )
-                .updateAt( this.getUpdatedate() )
+                .createdate( this.getCreatedate() )
+                .updatedate( this.getUpdatedate() )
                .build();
     } // f end
 
