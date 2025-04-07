@@ -20,13 +20,13 @@ public class TaskService {
         System.out.println("courceDto = " + courceDto);
 
         // 1. DTO --> entity 변환
-        CourceEntity saveEntity = courceDto.toEntity();
+        CourceEntity courceEntity = courceDto.toEntity();
         // 2. 해당 entity를 .save 하기
-        courceRepository.save( saveEntity ); // 반환값 : 영속된 객체
+        CourceEntity saveEntity = courceRepository.save( courceEntity ); // 반환값 : 영속된 객체
         // 3. 결과 확인
-        if( saveEntity.getCno() > 0 ){ return false; } // 만약에 영속 결과(과정번호)가 없다면 false
+        if( saveEntity.getCno() > 0 ){ return true; } // 만약에 영속 결과(과정번호)가 없다면 false
 
-        return true;
+        return false;
     } // f end
 
     // 2. 과정 전체 조회

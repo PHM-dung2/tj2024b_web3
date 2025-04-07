@@ -9,10 +9,10 @@ import java.util.List;
 @RequestMapping("/day03/task")
 @RequiredArgsConstructor
 public class TaskController {
-    private  final TaskService taskService;
+    private final TaskService taskService;
 
     // 1. 과정 등록
-    @PostMapping
+    @PostMapping("/course")
     public boolean postCource(@RequestBody CourceDto courceDto){
         System.out.println("TaskController.post");
         System.out.println("courceDto = " + courceDto);
@@ -21,7 +21,7 @@ public class TaskController {
     } // f end
 
     // 2. 과정 전체 조회
-    @GetMapping
+    @GetMapping("/course")
     public List<CourceDto> getCource(){
         System.out.println("TaskController.get");
 

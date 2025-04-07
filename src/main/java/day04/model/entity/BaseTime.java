@@ -1,8 +1,7 @@
-package day03._과제3;
+package day04.model.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,9 +15,9 @@ import java.time.LocalDateTime;
 public class BaseTime {
 
     @CreatedDate
-    private LocalDateTime createAt;
+    private LocalDateTime createdate;
 
     @LastModifiedDate
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedate;
 
 }
