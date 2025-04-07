@@ -52,4 +52,16 @@ public class TodoController {
         return todoService.todoFindByPage( page, size );
     } // f end
 
+    // 7. 제목 검색 조회( 입력한 값이 *일치*한 제목 조회 )
+    @GetMapping("/search1")
+    public List<TodoDto> search1( @RequestParam String title ){
+        return todoService.search1( title );
+    } // f end
+
+    // 8. 제목 검색 조회( 입력한 값이 *포함*된 제목 조회 )
+    @GetMapping("/search2")
+    public List<TodoDto> search2( @RequestParam String keyword ){
+        return todoService.search2( keyword );
+    } // f end
+
 }
