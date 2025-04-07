@@ -5,8 +5,12 @@ import day04.model.entity.TodoEntity;
 import day04.model.repository.TodoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -137,6 +141,34 @@ public class TodoService {
                     return true;
                 })
                 .orElse( false );
+    } // f end
+
+    // 6. 전체조회( + 페이징처리 )
+    public List<TodoDto> todoFindByPage( int page, int size ){
+        // page : 현재 조회중인 페이지 번호
+        // size : 페이지 1개당 조회할 자료 개수
+        // 1. PageRequest 클래스 이용한 페이징처리 설정
+            // PageRequest( 조회할페이지번호, 자료개수 , 정렬[선택] )
+            // - 조회할페이지번호는 1페이지가 0부터 시작
+            // - 페이지당 조회할 자료 개수
+            // - Sort.by : 정렬
+                // - Sort.by( Sort.Direction.ASC, "필드명" ) : 오름차순
+                // - Sort.by( Sort.Direction.DESC, "필드명" ) : 내림차순( 최신순 )
+        PageRequest pageRequest = PageRequest.of( page-1, size, Sort.by( Sort.Direction.DESC, "id" ) );
+        // [방법2] 2. stream 이용한 조회 리스트를 dto로 변환한다.
+        return todoRepository.findAll( pageRequest ).stream()
+                .map( TodoEntity::toDto )
+                .collect( Collectors.toList() );
+
+        /*
+        // 2. pageRequest 객체를 findXX에 매개변수로 대입한다. .finaAll( 페이징객체 ); , 반환타입 : Page타입
+        Page< TodoEntity > todoEntityPage  = todoRepository.findAll( pageRequest );
+        // 3. page타입의 entity를 dto로 변환
+        List< TodoDto > todoDtoList = new ArrayList<>();
+        for( int i = 0; i < todoEntityPage.getContent().size() ; i++ ){
+            TodoDto todoDto = todoEntityPage.getContent().get( i ).toDto();
+        } // for end
+        */
     } // f end
 
 }
