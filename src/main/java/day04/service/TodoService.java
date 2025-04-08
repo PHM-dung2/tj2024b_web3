@@ -31,7 +31,7 @@ public class TodoService {
         // 2. entity를 save(영속화/db레코드 매칭/등록)한다.
         TodoEntity saveEntity = todoRepository.save( todoEntity );
         // 3. save로부터 변환된 엔티티(영속화)된 결과가 존재하면
-        if( saveEntity.getId() > 1 ){
+        if( saveEntity.getId() >= 1 ){
             return saveEntity.toDto(); // entity를 dto로 변환하여 반환
         }else{ // 결과가 존재하지 않으면
             return null; // null 반환

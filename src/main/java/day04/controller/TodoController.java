@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/day04/todos")
 @RequiredArgsConstructor
+@CrossOrigin("*") // 플러터 dio 테스트 용도
 public class TodoController {
     private final TodoService todoService;
 
