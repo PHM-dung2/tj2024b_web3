@@ -16,8 +16,8 @@ public class TaskDto {
     private String name;
     private String description;
     private int quantity;
-    private LocalDateTime createdate;
-    private LocalDateTime updatedate;
+    private String createdate;
+    private String updatedate;
 
     public TaskEntity toEntity(){
         return TaskEntity.builder()
@@ -25,6 +25,8 @@ public class TaskDto {
                 .name( this.name )
                 .description( this.description )
                 .quantity( this.quantity )
+                .createdate( this.getCreatedate() )
+                .updatedate( this.getUpdatedate() )
                 .build();
     } // f end
 

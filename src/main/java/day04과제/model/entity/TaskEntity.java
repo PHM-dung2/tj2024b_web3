@@ -7,17 +7,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity @Data @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "product" )
-public class TaskEntity extends BaseTime{
+public class TaskEntity{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private int id;
     private String name;
     private String description;
     private int quantity;
+    private String createdate;
+    private String updatedate;
 
     public TaskDto toDto(){
         return TaskDto.builder()

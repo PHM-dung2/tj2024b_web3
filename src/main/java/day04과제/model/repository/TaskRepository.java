@@ -16,13 +16,11 @@ public interface TaskRepository extends JpaRepository< TaskEntity, Integer > {
 
     // 1. 비품 등록
     @Modifying
-    @Query( value = "INSERT INTO product( name, description, quantity, createdate, updatedate ) " +
-            "VALUES( :name, :description, :quantity, :createdate, :updatedate )", nativeQuery = true )
+    @Query( value = "INSERT INTO product( name, description, quantity, createdate ) " +
+            "VALUES( :name, :description, :quantity, now() )", nativeQuery = true )
     int postByNative( @Param("name") String name,
                       @Param("description") String description,
-                      @Param("quantity") int quantity,
-                      @Param("createdate") LocalDateTime createdate,
-                      @Param("updatedate") LocalDateTime updatedate );
+                      @Param("quantity") int quantity );
 
     // 2. 전체 비품 조회
     @Query( value = "SELECT * FROM product", nativeQuery = true )
@@ -35,7 +33,7 @@ public interface TaskRepository extends JpaRepository< TaskEntity, Integer > {
     // 4. 비품 수정
     @Modifying
     @Query( value = "UPDATE product SET name = :name, description = :description, " +
-            "quantity = :quantity WHERE id = :id", nativeQuery = true )
+            "quantity = :quantity, updatedate = now() WHERE id = :id", nativeQuery = true )
     int updateByNative( @Param("id") int id,
                         @Param("name") String name,
                         @Param("description") String description,

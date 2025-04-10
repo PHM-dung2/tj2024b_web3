@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,9 +45,7 @@ public class TaskService {
         int saveEntity = taskRepository.postByNative(
                 taskEntity.getName(),
                 taskEntity.getDescription(),
-                taskEntity.getQuantity(),
-                taskEntity.getCreatedate(),
-                taskEntity.getUpdatedate()
+                taskEntity.getQuantity()
         );
 
         if( saveEntity == 1 ){
