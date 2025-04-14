@@ -1,6 +1,5 @@
 package web.model.dto;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,18 +11,18 @@ import java.time.LocalDateTime;
 @Builder
 @Data @NoArgsConstructor @AllArgsConstructor
 public class MemberDto {
-    @Id
-    private String email;
-    private String pwd;
-    private String name;
+    private int mno;
+    private String memail;
+    private String mpwd;
+    private String mname;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
     public MemberEntity toEntity(){
         return MemberEntity.builder()
-                .email( this.email )
-                .pwd( this.pwd )
-                .name( this.name )
+                .memail( this.memail )
+                .mpwd( this.mpwd )
+                .mname( this.mname )
                 .build();
     }
 }
