@@ -15,8 +15,8 @@ public class MemberController {
 
     // 1. 회원가입
     @PostMapping
-    public boolean onSave( @RequestBody MemberDto memberDto ){
-        return memberService.onSave( memberDto );
+    public boolean onSignUp( @RequestBody MemberDto memberDto ){
+        return memberService.onSignUp( memberDto );
     } // f end
 
     // 2. 로그인

@@ -17,11 +17,10 @@ public class MemberEntity extends BaseTime{
     private String mpwd;
     private String mname;
 
-    public MemberDto toEntity(){
+    public MemberDto toDto(){
         return MemberDto.builder()
                 .mno( this.mno )
                 .memail( this.memail )
-                .mpwd( this.mpwd )
                 .mname( this.mname )
                 .createAt( this.getCreateAt() )
                 .updateAt( this.getUpdateAt() )
