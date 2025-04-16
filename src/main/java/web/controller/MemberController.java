@@ -15,14 +15,15 @@ public class MemberController {
 
     // 1. 회원가입
     @PostMapping
-    public boolean onSignUp( @RequestBody MemberDto memberDto ){
-        return memberService.onSignUp( memberDto );
+    public boolean signUp( @RequestBody MemberDto memberDto ){
+        return memberService.signUp( memberDto );
     } // f end
 
     // 2. 로그인
     @PostMapping("/login")
-    public boolean onLogIn( @RequestBody MemberDto memberDto ){
-        return memberService.onLogIn( memberDto );
+//    public boolean logIn( @RequestBody MemberDto memberDto ){
+    public String logIn( @RequestBody MemberDto memberDto ){
+        return memberService.logIn( memberDto );
     } // f end
 
 }

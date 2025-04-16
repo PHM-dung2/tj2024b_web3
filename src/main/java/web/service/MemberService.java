@@ -19,7 +19,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     // 1. 회원가입
-    public boolean onSignUp( MemberDto memberDto ){
+    public boolean signUp( MemberDto memberDto ){
         if( memberDto.getMpwd() == null ){ return false; }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashPwd = passwordEncoder.encode( memberDto.getMpwd() );
@@ -34,16 +34,28 @@ public class MemberService {
     } // f end
 
     // 2. 로그인
-    public boolean onLogIn( MemberDto memberDto ){
-        if (memberDto == null || memberDto.getMemail() == null) { return false; }
-        List<MemberEntity> memberEntityList = memberRepository.findAll();
+    public String logIn( MemberDto memberDto ){
+        // 1. 이메일(아이디)를 DB에서 조회하여 엔티티 찾기
+        MemberEntity memberEntity = memberRepository.findByMemail( memberDto.getMemail() );
+        // 2. 조회된 엔티티가 없으면
+        if( memberEntity != null ){ return null; } // 로그인 실패
+        // 3. 조회된 엔티티의 비밀번호 검증  .matches( 입력받은패스워드, 암호화된패스워드 )
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean inMatch = passwordEncoder.matches( memberDto.getMpwd(), memberEntity.getMpwd() );
+        // 4. 비밀번호 검증 실패이면
+        if( inMatch == false ){ return null; } // 로그인 실패
+        // 5. 비밀번호 검증 성공이면, 세션 할당 vs 토큰 할당
 
 
-//        String matchPwd = result.getMpwd();
+    } // f end
+
+//    public boolean logIn( MemberDto memberDto ){
+//        if (memberDto == null || memberDto.getMemail() == null) { return false; }
+//        List<MemberEntity> memberEntityList = memberRepository.findAll();
+//        String matchPwd = memberRepository.MatchPwd( memberDto.getMemail() );
 //
 //        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //        return passwordEncoder.matches( memberDto.getMpwd(), matchPwd );
-        return false;
-    } // f end
+//    } // f end
 
 }
