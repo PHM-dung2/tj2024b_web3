@@ -39,6 +39,17 @@ public class MemberController {
         return memberService.info( token );
     } // f end
 
+    // 4. 로그아웃, 로그아웃할 토큰 가져오기
+    @GetMapping("/logout")
+    public void logout( @RequestHeader("Authorization") String token ){
+        memberService.logout( token );
+    } // f end
+
+    // 5. 최근 24시간 로그인한 접속자 수
+    @GetMapping("/login/count")
+    public int loginCount(){
+        return memberService.loginCount();
+    } // f end
 
 
 }
