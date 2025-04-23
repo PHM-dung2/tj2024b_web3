@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity @Builder @Table( name = "reply" )
 @Data @NoArgsConstructor @AllArgsConstructor
-public class ReplyEntity {
+public class ReplyEntity extends BaseTime{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private long rno; // 댓글 식별전호

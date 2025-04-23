@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity @Builder @Table( name = "category" )
 @Data @NoArgsConstructor @AllArgsConstructor
-public class CategoryEntity{
+public class CategoryEntity extends BaseTime{
     @Id // premary key
     @GeneratedValue( strategy = GenerationType.IDENTITY ) // auto_increment
     private long cno; // 카테고리 식별번호

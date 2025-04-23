@@ -7,7 +7,7 @@ import web.model.dto.MemberDto;
 import web.service.MemberService;
 
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("/member")
 @RequiredArgsConstructor // final(수정불가) 필드의 생성자 자동 생성
 @CrossOrigin("*")
 public class MemberController {

@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 
 @Entity @Builder @Table( name = "image" )
 @Data @NoArgsConstructor @AllArgsConstructor
-public class ImgEntity {
+public class ImgEntity extends BaseTime{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private long ino; // 이미지 식별번호
 
     @Column( nullable = false )
-    private String lname; // 이미지명
+    private String iname; // 이미지명
 
     // * 단방향
     @ManyToOne

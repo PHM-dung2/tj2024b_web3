@@ -3,19 +3,20 @@ package web.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import web.model.dto.ProductDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Builder @Table( name = "product" )
 @Data @NoArgsConstructor @AllArgsConstructor
-public class ProductEntity {
+public class ProductEntity extends BaseTime{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private long pno; // 제품 식별번호
 
     @Column( nullable = false )
-    private String panme; // 제품명
+    private String pname; // 제품명
 
     @Column( columnDefinition = "longtext" ) // mysql  네이티브 타입
     private String pcontent; // 제품 설명
