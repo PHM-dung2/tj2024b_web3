@@ -1,13 +1,16 @@
 package web.model.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import web.model.entity.ProductEntity;
 
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository< ProductEntity, Integer > {
+public interface ProductRepository extends JpaRepository< ProductEntity, Long > {
 
     // 방법1. JPA 기본적인 함수 제공
     // save, findAll, findById, delete 등
@@ -15,11 +18,22 @@ public interface ProductRepository extends JpaRepository< ProductEntity, Integer
     // 방법2. 쿼리메소드, 규칙 : 명명규칙( 카멜 )
         // findBy ~ : select
             // findByCno[x] : ProductEntity에는 cno가 존재하지 않아서 불가능
-                //
+                // findByCategoryEntityCno[o]
             // findByPname[o] : ProductEntity pname 존재해서 가능
 
-    List<ProductEntity> findByCategoryEntity();
-    // 방법3. 네이티브 쿼리, 규칙 : mysql 코드
+    List<ProductEntity> findByCategoryEntityCno( long cno );
+    // 방법3. 네이티브 쿼리, 규칙 : mysql 코드, query문에서 매개변수 사용시 앞에 :(콜론)
+        // select * from product where cno = :cno
+    @Query( value = "select * from product where cno = :cno" , nativeQuery = true )
+    List<ProductEntity> nativeQuery1( long cno );
+
+        // (*) 카테고리별 제품키워드 검색
+    // @Query( value = "SQL 작성", nativeQuery = true )
+    // SQL문에서 매개변수 사용시 매개변수 앞에 :(콜론)
+    @Query( value = "SELECT * FROM product " +
+                    "WHERE ( :cno IS NULL OR :cno = 0 OR cno = :cno ) " + // java == null vs sql : IS NULL
+                    "AND ( :keyword IS NULL OR pname LIKE %:keyword% )", nativeQuery = true )
+    Page<ProductEntity> findBySearch(Long cno, String keyword, Pageable pageable );
 
     // 방법4. * JPQL, 규칙 : 자바가 만든 slq 코드
 

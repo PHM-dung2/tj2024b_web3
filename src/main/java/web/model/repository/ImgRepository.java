@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import web.model.entity.ImgEntity;
 
 @Repository
-public interface ImgRepository extends JpaRepository< ImgEntity, Integer > {
+public interface ImgRepository extends JpaRepository< ImgEntity, Long > {
 }
