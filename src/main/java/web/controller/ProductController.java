@@ -2,6 +2,7 @@ package web.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.model.dto.CategoryDto;
@@ -142,7 +143,7 @@ public class ProductController {
         매개변수 : x
     */
     @GetMapping("/category")
-    public ResponseEntity< List<CategoryDto> > allCategory(){
+    public ResponseEntity<List<CategoryDto>> allCategory(){
         List< CategoryDto > categoryDtoList = productService.allCategory();
         return ResponseEntity.status( 200 ).body( categoryDtoList );
     } // f end
@@ -154,12 +155,12 @@ public class ProductController {
         매개변수 : cno(없으면전체조회), page(현재페이지번호없으면1페이지), keyword(없으면전체조회)
     */
     @GetMapping("/all")
-    public ResponseEntity< List< ProductDto > > allProducts(
+    public ResponseEntity< Page< ProductDto > > allProducts(
             @RequestParam( required = false ) Long cno, // cno : 카테고리 번호, long(기본타입) Long(참조타입)
             @RequestParam( defaultValue = "1" ) int page, // page : 조회할 현재페이지 번호, defaultValue
             @RequestParam( defaultValue = "5" ) int size, // size : 페이지당 게시물 수
             @RequestParam( required = false ) String keyword ){ // keyword : (제품명) 검색어
-        List< ProductDto > productDtoList = productService.allProducts( cno, page, size, keyword );
+        Page< ProductDto > productDtoList = productService.allProducts( cno, page, size, keyword );
         return ResponseEntity.status( 200 ).body( productDtoList );
 
     } // f end

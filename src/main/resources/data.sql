@@ -1,7 +1,7 @@
 -- Member 테이블 (10명) - 비밀번호는 해시, 주석에는 원문 표시
 -- 모든 회원의 원본 비밀번호는 '1234' (BCrypt 해시 포함)
 INSERT INTO member (memail, mpwd, mname, create_at, update_at) VALUES
-('user1@example.com',  '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '김하나', NOW(), NOW()), -- 비밀번호: 1234
+('qwe123',  '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '김하나', NOW(), NOW()), -- 비밀번호: 1234
 ('user2@example.com',  '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '이둘',   NOW(), NOW()), -- 비밀번호: 1234
 ('user3@example.com',  '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '박셋',   NOW(), NOW()), -- 비밀번호: 1234
 ('user4@example.com',  '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '최넷',   NOW(), NOW()), -- 비밀번호: 1234
